@@ -1,30 +1,139 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="app">
+    <!--    <div>-->
+    <!--      <button @click="addLike">Like</button>-->
+    <!--      <button @click="addDislike">Dislike</button>-->
+    <!--    </div>-->
+    <!--    <div>Количество лайков: <strong>{{likes}}</strong></div>-->
+    <!--    <div>Количество лайков: <strong>{{dislikes}}</strong></div>-->
+
+    <!--    <form @submit.prevent>-->
+    <!--      <h4>Создание поста</h4>-->
+    <!--      <input-->
+    <!--          v-bind:value="title"-->
+    <!--          @input="title=$event.target.value"-->
+    <!--          class="input"-->
+    <!--          type="text"-->
+    <!--          placeholder="Название"-->
+    <!--      >-->
+    <!--      <input-->
+    <!--          v-bind:value="body"-->
+    <!--          @input="body=$event.target.value"-->
+    <!--          class="input"-->
+    <!--          type="text"-->
+    <!--          placeholder="Описание"-->
+    <!--      >-->
+    <!--      <button-->
+    <!--          class="btn"-->
+    <!--          @click="createPost"-->
+    <!--      >Создать-->
+    <!--      </button>-->
+    <!--    </form>-->
+    <!--    <div class="post" v-for="post in posts">-->
+    <!--      <div><strong>Название:</strong> {{ post.title }}</div>-->
+    <!--      <div><strong>Описание:</strong> {{ post.body }}</div>-->
+    <!--    </div>-->
+    <PostForm @create="createPost"/>
+    <PostList :posts="posts"/>
+  </div>
 </template>
 
+<script>
+
+import PostForm from "@/components/PostForm";
+import PostList from "@/components/PostList";
+
+export default {
+  components: {
+    PostForm, PostList
+  },
+  data() {
+    return {
+      // likes: 5,
+      // dislikes: 1,
+      posts: [
+        {id: 1, title: 'Javascript', body: 'Javascript универсальный язык программирования'},
+        {id: 2, title: 'Javascript 2', body: 'Описание поста 2'},
+        {id: 3, title: 'Javascript 3', body: 'Описание поста 3'},
+        {id: 4, title: 'Javascript 4', body: 'Описание поста 4'},
+      ],
+      // title: '',
+      // body: '',
+    }
+  },
+  methods: {
+    // addLike() {
+    //   this.likes += 1
+    // },
+    // addDislike() {
+    //   this.dislikes += 1
+    // },
+
+
+    createPost(post) {
+      this.posts.push(post)
+
+      // e.stopPropagation()
+      // e.preventDefault()
+      // const newPost = {
+      //   id: Date.now(),
+      //   title: this.title,
+      //   body: this.body,
+      // }
+      // this.posts.push(newPost)
+      // this.title = ''
+      // this.body = ''
+      // this.posts = [...this.posts, newPost]
+    },
+    // inputTitle(e){
+    //   this.title=e.target.value
+    //   // console.log(e)
+    // }
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-nav {
-  padding: 30px;
+.app {
+  padding: 20px;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+/*.post {*/
+/*  padding: 15px;*/
+/*  border: 2px solid teal;*/
+/*  margin-top: 15px;*/
+/*}*/
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+
+/*form {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*}*/
+
+/*.input {*/
+/*  width: 100%;*/
+/*  border: 1px solid teal;*/
+/*  padding: 10px 15px;*/
+/*  margin-top: 15px;*/
+/*}*/
+
+/*.btn {*/
+/*  margin-top: 15px;*/
+/*  align-self: flex-end;*/
+/*  padding: 10px 15px;*/
+/*  background: none;*/
+/*  color: teal;*/
+/*  border: 1px solid teal;*/
+/*  border-radius: 10px;*/
+/*}*/
 </style>
+
+<!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
+<!--time: 21.00-->
+<!--Lessons:  https://habr.com/ru/company/ruvds/blog/509700/-->
