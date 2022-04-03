@@ -135,5 +135,5 @@ export default {
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
-<!--time: 21.00-->
+<!--time: 46.47-->
 <!--Lessons:  https://habr.com/ru/company/ruvds/blog/509700/-->
