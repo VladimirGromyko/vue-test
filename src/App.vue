@@ -35,6 +35,25 @@
     <!--    </div>-->
     <PostForm @create="createPost"/>
     <PostList :posts="posts"/>
+    <GoodsList
+        :product="product"
+        :image="image"
+        :link="link"
+        :inventory="inventory"
+        :onSale="onSale"
+        :details="details"
+    />
+    <!--    <GoodsList-->
+    <!--        :product="product"-->
+    <!--        :image="image"-->
+    <!--        :link="link"-->
+    <!--        :inventory="inventory"-->
+    <!--        :onSale="onSale"-->
+    <!--        :details="details"-->
+    <!--        :variants="variants"-->
+    <!--        @filter="filter"-->
+    <!--    />-->
+
   </div>
 </template>
 
@@ -42,10 +61,11 @@
 
 import PostForm from "@/components/PostForm";
 import PostList from "@/components/PostList";
+import GoodsList from "@/components/GoodsList";
 
 export default {
   components: {
-    PostForm, PostList
+    PostForm, PostList, GoodsList,
   },
   data() {
     return {
@@ -53,12 +73,30 @@ export default {
       // dislikes: 1,
       posts: [
         {id: 1, title: 'Javascript', body: 'Javascript универсальный язык программирования'},
-        {id: 2, title: 'Javascript 2', body: 'Описание поста 2'},
-        {id: 3, title: 'Javascript 3', body: 'Описание поста 3'},
-        {id: 4, title: 'Javascript 4', body: 'Описание поста 4'},
+        {id: 2, title: 'Javascript', body: 'Описание поста 2'},
+        {id: 3, title: 'Typescript 3', body: 'Описание поста 3'},
+        {id: 4, title: 'Java 4', body: 'Описание поста 4'},
       ],
       // title: '',
       // body: '',
+      product: 'Socks',
+      //
+
+      image: 'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
+      link: 'https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks',
+      inventory: 12,
+      onSale: true,
+      details: ['80% cotton', '20% polyester', 'Gender-neutral'],
+      // variants: [
+      //   {
+      //     variantId: 2234,
+      //     variantColor: "green"
+      //   },
+      //   {
+      //     variantId: 2235,
+      //     variantColor: "blue"
+      //   },
+
     }
   },
   methods: {
@@ -68,7 +106,9 @@ export default {
     // addDislike() {
     //   this.dislikes += 1
     // },
-
+    filter() {
+      this.posts = this.posts.filter((el) => el.title === 'Javascript')
+    },
 
     createPost(post) {
       this.posts.push(post)
@@ -132,6 +172,27 @@ export default {
 /*  border: 1px solid teal;*/
 /*  border-radius: 10px;*/
 /*}*/
+.product {
+  display: flex;
+}
+
+img {
+  border: 1px solid #d8d8d8;
+  width: 70%;
+  margin: 40px;
+  box-shadow: 0px .5px 1px #d8d8d8;
+}
+
+.product-image {
+  flex-basis: 700px;
+}
+
+.product-info {
+  margin-top: 10px;
+  flex-basis: 500px;
+}
+
+
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
