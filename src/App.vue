@@ -147,55 +147,6 @@ export default {
   padding: 20px;
 }
 
-/*.post {*/
-/*  padding: 15px;*/
-/*  border: 2px solid teal;*/
-/*  margin-top: 15px;*/
-/*}*/
-
-
-/*form {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*}*/
-
-/*.input {*/
-/*  width: 100%;*/
-/*  border: 1px solid teal;*/
-/*  padding: 10px 15px;*/
-/*  margin-top: 15px;*/
-/*}*/
-
-/*.btn {*/
-/*  margin-top: 15px;*/
-/*  align-self: flex-end;*/
-/*  padding: 10px 15px;*/
-/*  background: none;*/
-/*  color: teal;*/
-/*  border: 1px solid teal;*/
-/*  border-radius: 10px;*/
-/*}*/
-.product {
-  display: flex;
-}
-
-img {
-  border: 1px solid #d8d8d8;
-  width: 70%;
-  margin: 40px;
-  box-shadow: 0px .5px 1px #d8d8d8;
-}
-
-.product-image {
-  flex-basis: 700px;
-}
-
-.product-info {
-  margin-top: 10px;
-  flex-basis: 500px;
-}
-
-
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->

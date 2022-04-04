@@ -17,22 +17,27 @@
         type="text"
         placeholder="Описание"
     >
-    <button
-        class="btn"
-        @click="createPost"
-    >Создать
-    </button>
-    <button
+    <div class="buttons">
+      <MyButton
+          class="btn"
+          @click="createPost"
+      >Создать
+    </MyButton>
+    <MyButton
         class="btn"
         @click="filter"
     >Вывести только JS
-    </button>
+    </MyButton>
+    </div>
+
   </form>
 </template>
 
 <script>
+import MyButton from "@/components/UI/MyButton";
 export default {
   name: "PostForm",
+  components: {MyButton},
   data() {
     return {
       post: {
@@ -85,14 +90,10 @@ form {
   padding: 10px 15px;
   margin-top: 15px;
 }
-
-.btn {
-  margin-top: 15px;
-  align-self: flex-end;
-  padding: 10px 15px;
-  background: none;
-  color: teal;
-  border: 1px solid teal;
-  border-radius: 10px;
+.buttons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }
+
 </style>
