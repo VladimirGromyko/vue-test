@@ -33,7 +33,10 @@
     <!--      <div><strong>Название:</strong> {{ post.title }}</div>-->
     <!--      <div><strong>Описание:</strong> {{ post.body }}</div>-->
     <!--    </div>-->
-    <PostForm @create="createPost"/>
+    <PostForm
+        @create="createPost"
+        :filter="filter"
+    />
     <PostList :posts="posts"/>
     <GoodsList
         :product="product"
@@ -106,7 +109,7 @@ export default {
     // addDislike() {
     //   this.dislikes += 1
     // },
-    filter() {
+    filter(posts) {
       this.posts = this.posts.filter((el) => el.title === 'Javascript')
     },
 

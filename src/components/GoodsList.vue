@@ -17,11 +17,7 @@
         </ul>
       </div>
     </div>
-<!--    <button-->
-<!--        class="btn"-->
-<!--        @click="filter"-->
-<!--    >Вывести только JS-->
-<!--    </button>-->
+
   </div>
 </template>
 
@@ -62,7 +58,8 @@ export default {
     //   ],
     //   required: true,
     // },
-  }
+  },
+
 }
 </script>
 

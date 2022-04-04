@@ -22,6 +22,11 @@
         @click="createPost"
     >Создать
     </button>
+    <button
+        class="btn"
+        @click="filter"
+    >Вывести только JS
+    </button>
   </form>
 </template>
 
@@ -36,7 +41,18 @@ export default {
       }
     }
   },
+  props: ["filter"],
+
+        // () {
+      // this.posts = this.posts.filter((el) => el.title === 'Javascript')
+    // },
+  // },
   methods: {
+      // filter() {
+      //   this.posts = this.posts.filter((el) => el.title === 'Javascript')
+      // },
+
+
     createPost() {
       // const newPost = {
       //   id: Date.now(),
