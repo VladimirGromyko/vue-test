@@ -9,10 +9,12 @@
         type="text"
         placeholder="Название"
     >
-    <!--    v-bind:value="post.body"-->
-    <!--    @input="post.body=$event.target.value"    -->
+
+    <!--    v-model="post.body"-->
     <input
-        v-model="post.body"
+
+        v-bind:value="post.body"
+        @input="post.body=$event.target.value"
         class="input"
         type="text"
         placeholder="Описание"
@@ -22,12 +24,12 @@
           class="btn"
           @click="createPost"
       >Создать
-    </MyButton>
-    <MyButton
-        class="btn"
-        @click="filter"
-    >Вывести только JS
-    </MyButton>
+      </MyButton>
+      <MyButton
+          class="btn"
+          @click="filter"
+      >Вывести только JS
+      </MyButton>
     </div>
 
   </form>
@@ -35,6 +37,7 @@
 
 <script>
 import MyButton from "@/components/UI/MyButton";
+
 export default {
   name: "PostForm",
   components: {MyButton},
@@ -48,14 +51,14 @@ export default {
   },
   props: ["filter"],
 
-        // () {
-      // this.posts = this.posts.filter((el) => el.title === 'Javascript')
-    // },
+  // () {
+  // this.posts = this.posts.filter((el) => el.title === 'Javascript')
+  // },
   // },
   methods: {
-      // filter() {
-      //   this.posts = this.posts.filter((el) => el.title === 'Javascript')
-      // },
+    // filter() {
+    //   this.posts = this.posts.filter((el) => el.title === 'Javascript')
+    // },
 
 
     createPost() {
@@ -64,6 +67,7 @@ export default {
       //   title: this.title,
       //   body: this.body,
       // }
+
       this.post.id = Date.now()
       this.$emit('create', this.post)
       this.post = {
@@ -90,6 +94,7 @@ form {
   padding: 10px 15px;
   margin-top: 15px;
 }
+
 .buttons {
   display: flex;
   align-items: flex-end;

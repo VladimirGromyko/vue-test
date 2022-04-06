@@ -15,6 +15,26 @@
         <ul>
           <li v-for="detail in details">{{ detail }}</li>
         </ul>
+<!--        <div>-->
+          <div v-for="variant in variants"
+               :key="variant.variantId">
+<!--            <p @mouseover="updateProduct(variant.variantImage)">-->
+              {{ variant.variantColor }}
+<!--            </p>-->
+          </div>
+<!--        </div>-->
+        <div class="basket">
+          <!--              v-on:click="cart += 1"-->
+          <MyButton
+              class="btn"
+              @click="addToCart"
+          >Add to cart
+          </MyButton>
+          <div class="basket__cart">
+            <p>Cart({{ cart }})</p>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -22,8 +42,11 @@
 </template>
 
 <script>
+import MyButton from "@/components/UI/MyButton";
+
 export default {
   name: "GoodsList",
+  components: {MyButton},
   props: {
     product: {
       type: String,
@@ -49,15 +72,28 @@ export default {
       type: Array,
       required: true
     },
-    // variants: {
-    //   type: [
-    //     {
-    //       variantId: number,
-    //       variantColor: string,
-    //     }
-    //   ],
-    //   required: true,
-    // },
+    variants: {
+      type: [
+        // {
+        //   variantId: {type:Number, required:true},
+        //   variantColor: {type:String, required:true},
+        //   variantImage: {type:String, required:true},
+        // }
+      ],
+      required: true,
+    },
+    cart: {
+      type: Number,
+      required: true
+    },
+    addToCart: {
+      type: Function,
+      required: true
+    },
+    updateProduct: {
+      type: Function,
+      required: true
+    }
   },
 
 }
@@ -67,6 +103,7 @@ export default {
 .product {
   display: flex;
 }
+
 img {
   border: 1px solid #d8d8d8;
   width: 70%;
@@ -81,5 +118,18 @@ img {
 .product-info {
   margin-top: 10px;
   flex-basis: 500px;
+}
+
+.basket {
+  display: flex;
+
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.basket__cart {
+  border: 1px solid #d8d8d8;
+  margin-top: 15px;
+  padding: 10px 15px;
 }
 </style>

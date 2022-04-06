@@ -45,7 +45,13 @@
         :inventory="inventory"
         :onSale="onSale"
         :details="details"
+        :cart="cart"
+        :addToCart="addToCart"
+        :variants="variants"
+        :updateProduct="updateProduct"
     />
+
+
     <!--    <GoodsList-->
     <!--        :product="product"-->
     <!--        :image="image"-->
@@ -65,6 +71,8 @@
 import PostForm from "@/components/PostForm";
 import PostList from "@/components/PostList";
 import GoodsList from "@/components/GoodsList";
+import image1 from './assets/vmSocks-blue-onWhite.jpg'
+import image2 from './assets/vmSocks-green-onWhite.jpg'
 
 export default {
   components: {
@@ -85,21 +93,25 @@ export default {
       product: 'Socks',
       //
 
-      image: 'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
+      image: image2, //'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
       link: 'https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks',
       inventory: 12,
       onSale: true,
       details: ['80% cotton', '20% polyester', 'Gender-neutral'],
-      // variants: [
-      //   {
-      //     variantId: 2234,
-      //     variantColor: "green"
-      //   },
-      //   {
-      //     variantId: 2235,
-      //     variantColor: "blue"
-      //   },
+      variants: [
+        {
+          variantId: 2234,
+          variantColor: "green",
+          variantImage: image1
+        },
+        {
+          variantId: 2235,
+          variantColor: "blue",
+          variantImage: image2
+        },
 
+      ],
+      cart: 0,
     }
   },
   methods: {
@@ -128,6 +140,11 @@ export default {
       // this.body = ''
       // this.posts = [...this.posts, newPost]
     },
+    updateProduct(variantImage) {
+      this.image = variantImage
+    },
+    addToCart(){
+      return this.cart += 1}
     // inputTitle(e){
     //   this.title=e.target.value
     //   // console.log(e)
