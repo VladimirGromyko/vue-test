@@ -37,7 +37,7 @@
         @create="createPost"
         :filter="filter"
     />
-    <PostList :posts="posts"/>
+    <PostList :posts="posts" @remove="removePost"/>
     <GoodsList
         :product="product"
         :image="image"
@@ -140,16 +140,22 @@ export default {
       // this.body = ''
       // this.posts = [...this.posts, newPost]
     },
+    removePost(post) {
+      this.posts = this.posts.filter(p => p.id !== post.id)
+    },
+
     updateProduct(variantImage) {
       this.image = variantImage
     },
-    addToCart(){
-      return this.cart += 1}
+    addToCart() {
+      return this.cart += 1
+    }
     // inputTitle(e){
     //   this.title=e.target.value
     //   // console.log(e)
     // }
-  }
+  },
+
 }
 </script>
 
@@ -167,5 +173,5 @@ export default {
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
-<!--time: 46.47-->
+<!--time:1:10:10-->
 <!--Lessons:  https://habr.com/ru/company/ruvds/blog/509700/-->

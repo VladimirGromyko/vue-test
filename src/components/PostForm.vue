@@ -3,44 +3,38 @@
     <h4>Создание поста</h4>
     <!--        v-bind:value="post.title"-->
     <!--        @input="post.title=$event.target.value"-->
-    <input
+    <my-input
         v-model="post.title"
-        class="input"
         type="text"
         placeholder="Название"
-    >
-
-    <!--    v-model="post.body"-->
-    <input
-
-        v-bind:value="post.body"
-        @input="post.body=$event.target.value"
-        class="input"
+    />
+    <!--    v-bind:value="post.body"-->
+    <!--    @input="post.body=$event.target.value"    -->
+    <my-input
+        v-model="post.body"
         type="text"
         placeholder="Описание"
-    >
+    />
     <div class="buttons">
-      <MyButton
-          class="btn"
+      <my-button
+          style="margin-top: 15px"
           @click="createPost"
       >Создать
-      </MyButton>
-      <MyButton
-          class="btn"
+      </my-button>
+      <my-button
+          style="margin-top: 15px"
           @click="filter"
       >Вывести только JS
-      </MyButton>
+      </my-button>
     </div>
 
   </form>
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton";
 
 export default {
   name: "PostForm",
-  components: {MyButton},
   data() {
     return {
       post: {
@@ -67,7 +61,6 @@ export default {
       //   title: this.title,
       //   body: this.body,
       // }
-
       this.post.id = Date.now()
       this.$emit('create', this.post)
       this.post = {
@@ -88,12 +81,6 @@ form {
   flex-direction: column;
 }
 
-.input {
-  width: 100%;
-  border: 1px solid teal;
-  padding: 10px 15px;
-  margin-top: 15px;
-}
 
 .buttons {
   display: flex;

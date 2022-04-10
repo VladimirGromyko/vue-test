@@ -25,11 +25,11 @@
 <!--        </div>-->
         <div class="basket">
           <!--              v-on:click="cart += 1"-->
-          <MyButton
+          <my-button
               class="btn"
               @click="addToCart"
           >Add to cart
-          </MyButton>
+          </my-button>
           <div class="basket__cart">
             <p>Cart({{ cart }})</p>
           </div>
@@ -42,11 +42,9 @@
 </template>
 
 <script>
-import MyButton from "@/components/UI/MyButton";
 
 export default {
   name: "GoodsList",
-  components: {MyButton},
   props: {
     product: {
       type: String,
