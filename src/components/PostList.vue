@@ -9,10 +9,10 @@
         @remove="$emit('remove', post)"
     />
   </div>
-  <h2 v-else style="color: red">
+  <h3 v-else style="color: red">
 <!--  <h2 v-show="posts.length === 0" style="color: red">-->
     Список пользователей пуст
-  </h2>
+  </h3>
 </template>
 
 <script>

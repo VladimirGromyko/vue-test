@@ -173,5 +173,5 @@ export default {
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
-<!--time:1:10:10-->
+<!--time:1:12:05-->
 <!--Lessons:  https://habr.com/ru/company/ruvds/blog/509700/-->
