@@ -33,10 +33,15 @@
     <!--      <div><strong>Название:</strong> {{ post.title }}</div>-->
     <!--      <div><strong>Описание:</strong> {{ post.body }}</div>-->
     <!--    </div>-->
-    <PostForm
-        @create="createPost"
-        :filter="filter"
-    />
+    <h1>Страница с постами</h1>
+    <my-button @click="showDialog" style="margin: 15px 0">Создать пост</my-button>
+    <my-dialog v-model:show="dialogVisible">
+      <PostForm
+          @create="createPost"
+          :filter="filter"
+      />
+    </my-dialog>
+
     <PostList :posts="posts" @remove="removePost"/>
     <GoodsList
         :product="product"
@@ -73,9 +78,11 @@ import PostList from "@/components/PostList";
 import GoodsList from "@/components/GoodsList";
 import image1 from './assets/vmSocks-blue-onWhite.jpg'
 import image2 from './assets/vmSocks-green-onWhite.jpg'
+import MyDialog from "@/components/UI/MyDialog";
 
 export default {
   components: {
+    MyDialog,
     PostForm, PostList, GoodsList,
   },
   data() {
@@ -88,6 +95,7 @@ export default {
         {id: 3, title: 'Typescript 3', body: 'Описание поста 3'},
         {id: 4, title: 'Java 4', body: 'Описание поста 4'},
       ],
+      dialogVisible: false,
       // title: '',
       // body: '',
       product: 'Socks',
@@ -127,6 +135,7 @@ export default {
 
     createPost(post) {
       this.posts.push(post)
+      this.dialogVisible=false
 
       // e.stopPropagation()
       // e.preventDefault()
@@ -143,7 +152,9 @@ export default {
     removePost(post) {
       this.posts = this.posts.filter(p => p.id !== post.id)
     },
-
+    showDialog() {
+      this.dialogVisible=true
+    },
     updateProduct(variantImage) {
       this.image = variantImage
     },
@@ -173,5 +184,5 @@ export default {
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
-<!--time:1:12:05-->
+<!--time:1:16:07-->
 <!--Lessons:  https://habr.com/ru/company/ruvds/blog/509700/-->
