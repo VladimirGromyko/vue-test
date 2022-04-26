@@ -34,6 +34,8 @@
     <!--      <div><strong>Описание:</strong> {{ post.body }}</div>-->
     <!--    </div>-->
     <h1>Страница с постами</h1>
+        <my-button @click="fetchPosts">Получить посты</my-button>
+    <!--    <input type="text" v-model.trim="modificatorValue">-->
     <my-button @click="showDialog" style="margin: 15px 0">Создать пост</my-button>
     <my-dialog v-model:show="dialogVisible">
       <PostForm
@@ -42,7 +44,11 @@
       />
     </my-dialog>
 
-    <PostList :posts="posts" @remove="removePost"/>
+    <PostList :posts="posts"
+              @remove="removePost"
+              v-if="!isPostsLoading"
+    />
+    <div v-else>Идет загрузка...</div>
     <GoodsList
         :product="product"
         :image="image"
@@ -79,6 +85,7 @@ import GoodsList from "@/components/GoodsList";
 import image1 from './assets/vmSocks-blue-onWhite.jpg'
 import image2 from './assets/vmSocks-green-onWhite.jpg'
 import MyDialog from "@/components/UI/MyDialog";
+import axios from "axios";
 
 export default {
   components: {
@@ -90,12 +97,14 @@ export default {
       // likes: 5,
       // dislikes: 1,
       posts: [
-        {id: 1, title: 'Javascript', body: 'Javascript универсальный язык программирования'},
-        {id: 2, title: 'Javascript', body: 'Описание поста 2'},
-        {id: 3, title: 'Typescript 3', body: 'Описание поста 3'},
-        {id: 4, title: 'Java 4', body: 'Описание поста 4'},
+        // {id: 1, title: 'Javascript', body: 'Javascript универсальный язык программирования'},
+        // {id: 2, title: 'Javascript', body: 'Описание поста 2'},
+        // {id: 3, title: 'Typescript 3', body: 'Описание поста 3'},
+        // {id: 4, title: 'Java 4', body: 'Описание поста 4'},
       ],
       dialogVisible: false,
+      isPostsLoading: false,
+      // modificatorValue: '',
       // title: '',
       // body: '',
       product: 'Socks',
@@ -135,7 +144,7 @@ export default {
 
     createPost(post) {
       this.posts.push(post)
-      this.dialogVisible=false
+      this.dialogVisible = false
 
       // e.stopPropagation()
       // e.preventDefault()
@@ -153,13 +162,33 @@ export default {
       this.posts = this.posts.filter(p => p.id !== post.id)
     },
     showDialog() {
-      this.dialogVisible=true
+      this.dialogVisible = true
     },
+    async fetchPosts() {
+      try {
+        this.isPostsLoading=true
+        setTimeout(async ()=>{
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+          this.posts = response.data
+          this.isPostsLoading=false
+        },1000)
+      } catch (e) {
+        alert("Ошибка!")
+      } finally {
+
+      }
+    },
+
+
     updateProduct(variantImage) {
       this.image = variantImage
     },
     addToCart() {
       return this.cart += 1
+    },
+
+    mounted() {
+      this.fetchPosts()
     }
     // inputTitle(e){
     //   this.title=e.target.value
@@ -184,5 +213,5 @@ export default {
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
-<!--time:1:16:07-->
+<!--time:1:24:30-->
 <!--Lessons:  https://habr.com/ru/company/ruvds/blog/509700/-->
