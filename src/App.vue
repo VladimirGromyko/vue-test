@@ -34,9 +34,19 @@
     <!--      <div><strong>Описание:</strong> {{ post.body }}</div>-->
     <!--    </div>-->
     <h1>Страница с постами</h1>
-        <my-button @click="fetchPosts">Получить посты</my-button>
+    <div class="app__btns">
+      <my-button @click="showDialog"
+      >
+        Создать пост
+      </my-button>
+      <my-select
+          v-model="selectedSort"
+          :options="sortOptions"
+      />
+    </div>
+    <my-button @click="fetchPosts">Получить посты</my-button>
     <!--    <input type="text" v-model.trim="modificatorValue">-->
-    <my-button @click="showDialog" style="margin: 15px 0">Создать пост</my-button>
+
     <my-dialog v-model:show="dialogVisible">
       <PostForm
           @create="createPost"
@@ -86,9 +96,11 @@ import image1 from './assets/vmSocks-blue-onWhite.jpg'
 import image2 from './assets/vmSocks-green-onWhite.jpg'
 import MyDialog from "@/components/UI/MyDialog";
 import axios from "axios";
+import MySelect from "@/components/UI/MySelect";
 
 export default {
   components: {
+    MySelect,
     MyDialog,
     PostForm, PostList, GoodsList,
   },
@@ -119,7 +131,7 @@ export default {
         {
           variantId: 2234,
           variantColor: "green",
-          variantImage: image1
+          variantImage: image1,
         },
         {
           variantId: 2235,
@@ -129,6 +141,12 @@ export default {
 
       ],
       cart: 0,
+      selectedSort: '',
+      sortOptions: [
+        {value: 'title', name: 'По названию'},
+        {value: 'body', name: 'По содержимому'},
+        {value: 'id', name: 'По идентификатору'},
+      ],
     }
   },
   methods: {
@@ -166,16 +184,16 @@ export default {
     },
     async fetchPosts() {
       try {
-        this.isPostsLoading=true
-        setTimeout(async ()=>{
-          const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
-          this.posts = response.data
-          this.isPostsLoading=false
-        },1000)
+        this.isPostsLoading = true
+        // setTimeout(async () => {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        this.posts = response.data
+        // this.isPostsLoading = false
+        // }, 1000)
       } catch (e) {
         alert("Ошибка!")
       } finally {
-
+        this.isPostsLoading = false
       }
     },
 
@@ -186,16 +204,14 @@ export default {
     addToCart() {
       return this.cart += 1
     },
-
-    mounted() {
-      this.fetchPosts()
-    }
     // inputTitle(e){
     //   this.title=e.target.value
     //   // console.log(e)
     // }
   },
-
+  mounted() {
+    this.fetchPosts()
+  }
 }
 </script>
 
@@ -210,8 +226,14 @@ export default {
   padding: 20px;
 }
 
+.app__btns {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
-<!--time:1:24:30-->
+<!--time:1:31:00-->
 <!--Lessons:  https://habr.com/ru/company/ruvds/blog/509700/-->
