@@ -71,6 +71,15 @@ export default {
       // this.title = ''
       // this.body = ''
     }
+  },
+  watch: {
+    // для примера - глубокое отслеживание
+    post: {
+      handler(newValue) {
+        // console.log(newValue)
+      },
+      deep: true
+    }
   }
 }
 </script>

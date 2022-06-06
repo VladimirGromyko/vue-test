@@ -54,7 +54,14 @@
       />
     </my-dialog>
 
-    <PostList :posts="posts"
+<!--    Если сортируем с участием наблюдателя (свойство - watch)-->
+<!--    <PostList :posts="posts"-->
+<!--              @remove="removePost"-->
+<!--              v-if="!isPostsLoading"-->
+<!--    />-->
+
+    <!--    Если сортируем с участием свойства - computed (сортируем до момента рендеринга)-->
+    <PostList :posts="sortedPosts"
               @remove="removePost"
               v-if="!isPostsLoading"
     />
@@ -211,6 +218,24 @@ export default {
   },
   mounted() {
     this.fetchPosts()
+  },
+  computed: {
+    sortedPosts() {
+      return [ ...this.posts].sort(
+          (post1, post2)=> String(post1[this.selectedSort])?.localeCompare(String(post2[this.selectedSort]))
+      )
+    }
+  },
+  watch: {
+    selectedSort(newValue) {
+      // console.log(newValue)
+      this.posts.sort((post1, post2)=> {
+        return String(post1[newValue])?.localeCompare(String(post2[newValue]))
+      })
+    },
+    dialogVisible(newValue) {
+      // console.log(newValue)
+    }
   }
 }
 </script>
@@ -235,5 +260,5 @@ export default {
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
-<!--time:1:31:00-->
+<!--time:1:39:00-->
 <!--Lessons:  https://habr.com/ru/company/ruvds/blog/509700/-->
