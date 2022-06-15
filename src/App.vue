@@ -35,6 +35,10 @@
     <!--    </div>-->
     <h1>Страница с постами</h1>
     <div class="app__btns">
+      <my-input
+          v-model="searchQuery"
+          placeholder="Поиск...."
+      />
       <my-button @click="showDialog"
       >
         Создать пост
@@ -61,7 +65,7 @@
 <!--    />-->
 
     <!--    Если сортируем с участием свойства - computed (сортируем до момента рендеринга)-->
-    <PostList :posts="sortedPosts"
+    <PostList :posts="sortedAndSearchedPosts"
               @remove="removePost"
               v-if="!isPostsLoading"
     />
@@ -149,6 +153,7 @@ export default {
       ],
       cart: 0,
       selectedSort: '',
+      searchQuery: '',
       sortOptions: [
         {value: 'title', name: 'По названию'},
         {value: 'body', name: 'По содержимому'},
@@ -224,6 +229,9 @@ export default {
       return [ ...this.posts].sort(
           (post1, post2)=> String(post1[this.selectedSort])?.localeCompare(String(post2[this.selectedSort]))
       )
+    },
+    sortedAndSearchedPosts() {
+      return this.sortedPosts.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },
   watch: {
@@ -260,5 +268,5 @@ export default {
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
-<!--time:1:39:00-->
+<!--time:1:44:00-->
 <!--Lessons:  https://habr.com/ru/company/ruvds/blog/509700/-->
