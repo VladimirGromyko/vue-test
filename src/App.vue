@@ -58,11 +58,11 @@
       />
     </my-dialog>
 
-<!--    Если сортируем с участием наблюдателя (свойство - watch)-->
-<!--    <PostList :posts="posts"-->
-<!--              @remove="removePost"-->
-<!--              v-if="!isPostsLoading"-->
-<!--    />-->
+    <!--    Если сортируем с участием наблюдателя (свойство - watch)-->
+    <!--    <PostList :posts="posts"-->
+    <!--              @remove="removePost"-->
+    <!--              v-if="!isPostsLoading"-->
+    <!--    />-->
 
     <!--    Если сортируем с участием свойства - computed (сортируем до момента рендеринга)-->
     <PostList :posts="sortedAndSearchedPosts"
@@ -70,6 +70,18 @@
               v-if="!isPostsLoading"
     />
     <div v-else>Идет загрузка...</div>
+    <div class="page__wrapper">
+      <div v-for="pageNumber in totalPage"
+           :key="pageNumber"
+           class="page"
+           :class="{
+             'current-page': page===pageNumber
+           }"
+           @click="changePage(pageNumber)"
+      >
+        {{ pageNumber }}
+      </div>
+    </div>
     <GoodsList
         :product="product"
         :image="image"
@@ -154,6 +166,9 @@ export default {
       cart: 0,
       selectedSort: '',
       searchQuery: '',
+      page: 1,
+      limit: 10,
+      totalPage: 0,
       sortOptions: [
         {value: 'title', name: 'По названию'},
         {value: 'body', name: 'По содержимому'},
@@ -194,11 +209,21 @@ export default {
     showDialog() {
       this.dialogVisible = true
     },
+    changePage(pageNumber){
+      this.page = pageNumber
+    },
     async fetchPosts() {
       try {
         this.isPostsLoading = true
         // setTimeout(async () => {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts',
+            {
+              params: {
+                _page: this.page,
+                _limit: this.limit
+              }
+            })
+        this.totalPage = Math.ceil(response.headers['x-total-count'] / this.limit)
         this.posts = response.data
         // this.isPostsLoading = false
         // }, 1000)
@@ -226,8 +251,8 @@ export default {
   },
   computed: {
     sortedPosts() {
-      return [ ...this.posts].sort(
-          (post1, post2)=> String(post1[this.selectedSort])?.localeCompare(String(post2[this.selectedSort]))
+      return [...this.posts].sort(
+          (post1, post2) => String(post1[this.selectedSort])?.localeCompare(String(post2[this.selectedSort]))
       )
     },
     sortedAndSearchedPosts() {
@@ -237,12 +262,15 @@ export default {
   watch: {
     selectedSort(newValue) {
       // console.log(newValue)
-      this.posts.sort((post1, post2)=> {
+      this.posts.sort((post1, post2) => {
         return String(post1[newValue])?.localeCompare(String(post2[newValue]))
       })
     },
     dialogVisible(newValue) {
       // console.log(newValue)
+    },
+    page(){
+      this.fetchPosts()
     }
   }
 }
@@ -265,6 +293,19 @@ export default {
   margin: 15px 0;
 }
 
+.page__wrapper {
+  display: flex;
+  margin-top: 15px;
+}
+
+.page {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.current-page {
+  border: 2px solid teal;
+}
 </style>
 
 <!--Video: https://www.youtube.com/watch?v=XzLuMtDelGk-->
