@@ -223,6 +223,7 @@ export default {
                 _limit: this.limit
               }
             })
+        debugger
         this.totalPage = Math.ceil(response.headers['x-total-count'] / this.limit)
         this.posts = response.data
         // this.isPostsLoading = false
@@ -301,6 +302,8 @@ export default {
 .page {
   border: 1px solid black;
   padding: 10px;
+  margin: 5px;
+  border-radius: 15px;
 }
 
 .current-page {
